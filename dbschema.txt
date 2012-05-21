@@ -1,0 +1,23 @@
+CREATE TABLE game (
+id INTEGER PRIMARY KEY,
+player1 INTEGER NOT NULL,
+player2 INTEGER NOT NULL,
+outcome INTEGER NOT NULL,
+timeplayed DATETIME NOT NULL,
+videourl TEXT NOT NULL,
+FOREIGN KEY (player1) REFERENCES player(id),
+FOREIGN KEY (player2) REFERENCES player(id)
+);
+CREATE TABLE player (
+id INTEGER PRIMARY KEY,
+name TEXT NOT NULL,
+race INTEGER NOT NULL,
+rating INTEGER NOT NULL
+);
+CREATE TABLE post (
+id INTEGER PRIMARY KEY,
+title TEXT NOT NULL,
+body TEXT NOT NULL,
+timeposted DATETIME NOT NULL
+, slug TEXT);
+CREATE TABLE snippet (id integer primary key, snippetname text not null, snippettext text not null);
