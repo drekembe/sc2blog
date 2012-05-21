@@ -1,0 +1,129 @@
+html {
+   padding: 0;
+   margin: 0;
+   font-family: arial, sans-serif;
+   font-size:18px;
+   line-height:28px;
+}
+body {
+   padding: 0;
+   margin: 0;
+   background-image:url("default.png");
+   background-color:#888;
+}
+a {
+   text-decoration: underline;
+}
+a :hover {
+   cursor: pointer;
+   text-decoration: underline;
+}
+img {
+   border: none;
+}
+#main {
+   margin:40px auto;
+   width:960px;
+}
+#header-wrap {
+    background-image:url('header.jpg');
+    border-radius:20px;
+    text-shadow:#000 4px 4px 4px;
+}
+#header {
+    height:150px;
+    line-height:150px;
+    text-align:center;
+    font-family:'Russo One', sans-serif;
+    font-size:36px;
+    font-weight:bold;
+    color:white;
+}
+#navigation {
+    text-align:center;
+    padding:20px 0 15px 0;
+    background-image:url('semi.png');
+    border-bottom-right-radius:20px;
+    border-bottom-left-radius:20px;
+}
+#navigation a {
+    display:inline-block;
+    color:#fff;
+    font-family:'Russo One';
+    font-size:24px;
+    padding:0 15px;
+    text-decoration:none;
+}
+
+#navigation a:hover {
+    color:#aaa;
+}
+
+#blurb {
+    font-size:18px;
+    line-height:20px;
+    color:white;
+    text-shadow:black 2px 2px 2px;
+    padding: 20px;
+    font-style:italic;
+}
+
+#footer {
+    color:#777;
+    padding-top: 20px;
+    border-top:2px solid #ddd;
+    margin-top:24px;
+    margin-bottom:24px;
+    clear:both;
+    text-align:center;
+}
+
+#footer span {
+    color:black;
+}
+
+#wrapper {
+    overflow:hidden;
+    background-color:white;
+    border-radius:20px;
+}
+
+#left-column {
+    float:left;
+    width:500px;
+    padding:40px;
+}
+#right-column {
+    width:340px;
+    padding-right:40px;
+    padding-top:40px;
+    float:left;
+}
+
+.date {
+    color:#777;
+    text-decoration:italic;
+    font-size:14px;
+}
+
+h1 {
+    font-family:'Russo One';
+    font-size:24px;
+    margin:0;
+}
+
+p {
+    margin-bottom:24px;
+}
+
+a {
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+}
+a:hover {
+    color:#444;
+}
+table {
+    width:100%;
+}
