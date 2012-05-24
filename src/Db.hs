@@ -41,7 +41,7 @@ data Game = Game
     , player2 :: Player
     , winner :: Player
     , timePlayed :: UTCTime
-    , videoUrl :: Text
+    , videoUrl :: ByteString
     } deriving (Eq, Show, Read)
 
 rowToPlayer :: [SqlValue] -> Player

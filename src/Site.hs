@@ -130,7 +130,7 @@ mkGameSplice game = runChildrenWith
     ,("player2", mkPlayerSplice $ DB.player2 game)
     ,("winner", mkPlayerSplice $ DB.winner game)
     ,("timeplayed", textSplice $ showAsText $ DB.timePlayed game)
-    ,("videourl", textSplice $ DB.videoUrl game)
+    ,("videourl", textSplice $ bs2text $ DB.videoUrl game)
     ]
 
 ------------------------------------------------------------------------------
