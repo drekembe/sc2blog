@@ -907,10 +907,8 @@ routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;<
 </section>
 
 <!-- deck.navigation snippet -->
-<!--
 <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
 <a href="#" class="deck-next-link" title="Next">&#8594;</a>
--->
 
 <!-- deck.status snippet -->
 <p class="deck-status">
@@ -945,11 +943,11 @@ routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;<
 <script>
 $(function() {
 	$.deck('.slide');
-    $.deck('getContainer').bind('contextmenu', function(e) {
-        e.preventDefault();
-        $.deck('next');
-        return false;
-    });
+    //$.deck('getContainer').bind('contextmenu', function(e) {
+        //e.preventDefault();
+        //$.deck('next');
+        //return false;
+    //});
 });
 </script>
 
