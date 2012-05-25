@@ -1,1 +1,957 @@
-test
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>A Quick Intro to Snap</title>
+	
+	<meta name="description" content="A Quick Intro to Snap">
+	<meta name="author" content="Miran Lipovaca">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="./core/deck.core.css">
+	<link rel="stylesheet" href="./extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="./extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="./extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="./extensions/status/deck.status.css">
+	<link rel="stylesheet" href="./extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="./extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="./themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="./themes/transition/horizontal-slide.css">
+	
+	<script src="./modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="title-slide">
+	<h1>A Quick Intro to Snap</h1>
+</section>
+
+<section class="slide" id="whats-snap">
+    <h2>So, what's Snap?</h2>
+    <p>Snap is a web framework for the Haskell programming language. Nice!</p>
+    <section class="slide" id="whats-haskell">
+        <h2>By the way, what's Haskell?</h2>
+        <ul>
+            <li>A very cool and elegant functional programming language</li>
+            <li>Really fun to learn and use. Makes you think differently!</li> 
+            <li>A big subset of errors is caught at compile time</li>
+            <li>Can be really fast</li>
+            <li>Libraries for pretty much anything</li>
+        </ul>
+    </section>
+</section>
+<section class="slide" id="haskells-strength">
+    <h2>Snap leverages Haskell's strength</h2>
+    <ul>
+        <li>Compile time guarantees</li>
+        <li>Reasoning about types</li>
+        <li>The Haskell ecosystem</li>
+        <li>Haskell is fun, and so is Snap!</li>
+    </ul>
+</section>
+<section class="slide" id="simple-to-install">
+    <h2>Easy to get running with snap</h2>
+        <h3>Install</h3>
+        <pre>
+$ cabal update
+$ cabal install snap</pre>
+    <section class="slide">
+        <h3>Start a project</h3>
+        <pre>
+$ mkdir myproject; cd myproject
+$ snap init</pre>
+    </section>
+    <section class="slide">
+        <h3>Make and run</h3>
+        <pre>
+$ cabal install
+$ myproject -p 8000</pre>
+    </section>
+</section>
+<section class="slide" id="it-aint-slow">
+    <h2>Snap's no slouch</h2>
+    <p>It comes with a built-in fast HTTP server with an optional high-concurrency
+    backend using the libev event loop library.</p>
+    <img src="img/pong-bench.png">
+    <img src="img/file-bench.png">
+</section>
+<section class="slide" id="dynamic-recompilation">
+    <h2>Dynamic recompilation</h2>
+    <ul>
+        <li>No need to manually recompile while developing</li>
+        <li>Just make changes to source code and that's it</li>
+        <li>You don't even have to restart the server</li>
+    </ul>
+</section>
+<section class="slide" id="snap-is-flexible">
+    <h2>Snap is flexible</h2>
+    <ul>
+        <li>Doesn't force you into one way of doing things</li>
+        <li>Several approaches to building a web application</li>
+        <li>Choose any database backend you want</li>
+    </ul>
+    <section class="slide" id="modular">
+        <h2>It's also modular</h2>
+        <ul>
+            <li>Includes the concept of <em>Snaplets</em></li>
+            <li>Composable web applications within Snap</li>
+            <li>Self-contained</li>
+            <li>Pick and choose, then just glue them together</li>
+        </ul>
+    </section>
+</section>
+<section class="slide" id="templating-system">
+    <h2>Snap goes well with some Heist</h2>
+        <ul>
+            <li>Heist is a powerful templating language</li>
+            <li>Excellent separation of logic and presentation</li>
+            <li>Extremely simple to use for template designers</li>
+            <li>Make an API and expose it to designers via tags</li>
+        </ul>
+</section>
+<section class="slide">
+<h2>A simple Heist template</h2>
+ <pre>
+<span class="Identifier">&lt;</span>artists<span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;$</span><span class="Special">{</span>artisturl<span class="Special">}</span><span class="Constant">&quot;</span><span class="Identifier">&gt;&lt;</span>name<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;</span> - born on <span class="Identifier">&lt;</span>birthdate<span class="Identifier">/&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>albums<span class="Identifier">&gt;</span>
+            <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span>year<span class="Identifier">&gt;</span> - <span class="Identifier">&lt;</span>albumtitle<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;/</span>albums<span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>artists<span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide" id="active-development">
+    <h2>Snap is actively developed</h2>
+        <ul>
+            <li>Current version is 0.8</li>
+            <li>Mature enough to be used</li>
+            <li>Developers and users hang out on <code>#snapframework</code></li>
+        </ul>
+</section>
+<section class="slide" id="how-snap-work">
+    <h1>Taking a Closer Look at Snap</h1>
+</section>
+<section class="slide" id="parts">
+    <h2>What makes Snap</h2>
+    <ul>
+        <li><code>snap-core</code>: Core types and functionality + utilities</li>
+        <li><code>snap</code>: Convenience functions and snaplet functionality</li>
+        <li><code>snap-server</code>: An iteratee-based HTTP server library, which runs <code>Snap</code> web handlers</li>
+        <li><code>heist</code>: Awesome HTML-based templating engine</li>
+        <li><code>xmlhtml</code>: An XML/HTML parsing and rendering library made for Heist</li>
+    </ul>
+</section>
+<section class="slide" id="request-processing">
+    <h2>Handling a request</h2>
+    <img src="img/request-response.png">
+    <ul>
+        <li>The server gets a request and passes it off to the <code>Snap</code> monad</li>
+        <li>Based on the URL and other parameters, Snap decides which handler takes care of the request</li>
+        <li>The handler talks to the DB, files, etc.</li>
+        <li>Gives Hest data to put into a template</li>
+        <li>The handler gives the server a response</li>
+    </ul>
+</section>
+<section class="slide" id="the-snap-monad">
+    <h2>The <code>Snap</code> monad</h2>
+    <p>The monad that web handlers run in. It gives you:</p>
+    <ul>
+        <li>Stateful access to fetch or modify an HTTP request</li>
+        <li>Stateful access to fetch or modify an HTTP response</li>
+        <li>Failure semantics</li>
+        <li>Early termination</li>
+        <li>Access to the <code>IO</code> monad</li>
+        <li>Timeouts to kill handler threads after inactivity</li>
+        <li>Throwing and catching exceptions</li>
+        <li>Logging</li>
+    </ul>
+</section>
+<section class="slide" id="xmlhtml">
+    <h2><code>xmlhtml</code></h2>
+    <ul>
+        <li>A library that parses and renders XML/HTML</li>
+        <li>Used by Heist to manipulate templates</li>
+        <li>The main concept of <code>xmlhtml</code> is a <code>Node</code></li>
+        <li>A node is either a text node or an element.</li>
+        <li>An element has a tag, attributes and then a list of child nodes.</li>
+    </ul>
+<pre class="slide">
+<span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier"> </span><span class="Type">class</span><span class="Identifier">=</span><span class="Constant">&quot;bear-info&quot;</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">The grizzly bear</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+    The grizzly bear is a very
+    <span class="Identifier">&lt;</span><span class="Statement">em</span><span class="Identifier">&gt;</span><span class="htmlItalic">fearsome</span><span class="Identifier">&lt;/</span><span class="Statement">em</span><span class="Identifier">&gt;</span>
+    beast. Avoid at all costs.
+<span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide" id="heist-tea">
+    <h2>Heist takes a template ...</h2>
+<pre>
+<span class="Identifier">&lt;</span>person<span class="Identifier">&gt;</span>
+    Hi I'm <span class="Identifier">&lt;</span>name<span class="Identifier">/&gt;</span>, these are my favorites:
+    <span class="Identifier">&lt;</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>flavors<span class="Identifier">&gt;</span>
+            <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span>flavor<span class="Identifier">&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;/</span>flavors<span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>person<span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide">
+<h2>... and renders it</h2>
+<pre>
+Hi I'm Andy, these are my favorites:
+<span class="Identifier">&lt;</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;</span>Vanilla<span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;</span>Strawberry<span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;</span>Pistachio<span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+</pre>
+</section>
+
+<section class="slide" id="heist-do-it">
+<h2>How does Heist do it?</h2>
+    <ul>
+        <li>To make these transformations, Heist uses <em>splices</em>.</li>
+        <li>Splices are substitutions of nodes.</li>
+        <li>A splice takes a node and substitutes it with one or several other nodes</li>
+    </ul>
+</section>
+<section class="slide">
+        <p>The <code>flavors</code> node ...</p>
+        <pre>
+    <span class="Identifier">&lt;</span>flavors<span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span>flavor<span class="Identifier">&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;/</span>flavors<span class="Identifier">&gt;</span></pre>
+        <p>.. gets substituted by three <code>li</code> nodes.</p>
+        <pre>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;</span>Vanilla<span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;</span>Strawberry<span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;</span>Pistachio<span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span></pre>
+</section>
+<section class="slide" id="a-reversing-splice">
+    <h2>A splice that reverses text</h2>
+<pre>
+reverseSplice <span class="Statement">::</span> Splice AppHandler
+reverseSplice <span class="Statement">=</span> <span class="Statement">do</span>
+    node <span class="Statement">&lt;-</span> getParamNode
+    <span class="Statement">let</span> text <span class="Statement">=</span> nodeText node
+    return [TextNode <span class="Statement">$</span> reverse text]
+</pre>
+<pre>
+<span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>reverse<span class="Identifier">&gt;</span>Hello<span class="Identifier">&lt;/</span>reverse<span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+</pre>
+<pre>
+<span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+  olleH
+<span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide" id="applying-templates">
+    <h2>Applying templates</h2>
+    <p>The <code>apply</code> splice is bound to the <code>apply</code> tag. It loads a template in the node's place.</p>
+<pre>
+...
+<span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier"> </span><span class="Type">class</span><span class="Identifier">=</span><span class="Constant">&quot;navbar&quot;</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span>apply<span class="Identifier"> template=</span><span class="Constant">&quot;navigation&quot;</span><span class="Identifier">/&gt;</span>
+<span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+...
+</pre>
+    <section class="slide">
+    <p><code>navigation.tpl</code>:</p>
+<pre>
+<span class="Identifier">&lt;</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">Home</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/art&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">Art</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/family&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">My beautiful family</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/rugcollection&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">Rug collection</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+</pre>
+    </section>
+</section>
+<section class="slide" id="holes-in-templates">
+    <h2>Leaving holes in templates</h2>
+    <p><code>index.tpl</code></p>
+<pre>
+<span class="Identifier">&lt;</span><span class="Statement">html</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span><span class="Statement">head</span><span class="Identifier">&gt;</span>
+<span class="PreProc">    </span><span class="Identifier">&lt;</span><span class="Statement">title</span><span class="Identifier">&gt;</span><span class="Title">My home page! Welcome</span><span class="Identifier">&lt;/</span><span class="Statement">title</span><span class="Identifier">&gt;</span>
+<span class="PreProc">  </span><span class="Identifier">&lt;/</span><span class="Statement">head</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span><span class="Statement">body</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier"> </span><span class="Type">id</span><span class="Identifier">=</span><span class="Constant">&quot;main&quot;</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>maincontent<span class="Identifier">/&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier"> </span><span class="Type">id</span><span class="Identifier">=</span><span class="Constant">&quot;sidebar&quot;</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>sidebar<span class="Identifier">/&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span><span class="Statement">body</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span><span class="Statement">html</span><span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide" id="holes-in-templates-2">
+<h2><code>mainpage.tpl</code></h2>
+<pre>
+<span class="Identifier">&lt;</span>apply<span class="Identifier"> template=</span><span class="Constant">&quot;index&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;maincontent&quot;</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">Welcome to my cool site! I'm 12!</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+        Hi, I like sloths, they're cool
+    <span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;sidebar&quot;</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/cartoons&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">Cartoons</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/toys&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">My toys</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/superpowers&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">My superpowers</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>apply<span class="Identifier">&gt;</span>
+</pre>
+</section>
+
+<section class="slide" id="trivial-snap-application">
+    <h1>A Trivial Snap Application</h1>
+</section>
+
+<section class="slide" id="installing">
+    <h2>Getting a project set up</h2>
+    <h3>Install Snap for development</h3>
+    <pre>$ cabal install snap -fhint</pre>
+    <section class="slide">
+        <h3>Starting our project</h3>
+<pre>$ mkdir sample-project; cd sample-project
+$ snap init
+$ cabal install -fdevelopment
+</pre>
+    <p>Installing Snap with <code>-fhint</code> and installing your project with <code>-fdevelopment</code> enables dynamic recompilation.</p>
+    </section>
+</section>
+<section class="slide">
+<h2>Initializing our web app</h2>
+<pre>
+routes <span class="Statement">::</span> [(ByteString, Handler App App ())]
+routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;</span>, index)
+         , (<span class="Constant">&quot;/echo/:word&quot;</span>,  echo)]
+
+app <span class="Statement">::</span> SnapletInit App App
+app <span class="Statement">=</span> makeSnaplet <span class="Constant">&quot;app&quot;</span> <span class="Constant">&quot;my cool app.&quot;</span> Nothing <span class="Statement">$</span> <span class="Statement">do</span>
+    h <span class="Statement">&lt;-</span> nestSnaplet <span class="Constant">&quot;heist&quot;</span> heist <span class="Statement">$</span> heistInit <span class="Constant">&quot;templates&quot;</span>
+    addRoutes routes
+    return <span class="Statement">$</span> App h
+</pre>
+</section>
+<section class="slide">
+<h2>Adding some handlers</h2>
+<pre>
+index <span class="Statement">::</span> Handler App App ()
+index <span class="Statement">=</span> ifTop <span class="Statement">$</span> writeBS <span class="Constant">&quot;hey i'm in your browser&quot;</span>
+
+echo <span class="Statement">::</span> Handler App App ()
+echo <span class="Statement">=</span> <span class="Statement">do</span>
+    (Just word) <span class="Statement">&lt;-</span> getParam <span class="Constant">&quot;word&quot;</span>
+    writeBS <span class="Statement">$</span> <span class="Constant">&quot;Here's a word: &quot;</span> <span class="Statement">`mappend`</span> word
+</pre>
+</section>
+<section class="slide" id="a-less-trivial-project">
+    <h1>A Starcraft 2 Blog</h1>
+</section>
+<section class="slide" id="about-starcraft">
+    <h2>What is Starcraft 2?</h2>
+    <ul>
+        <li>A real-time strategy game developed by Blizzard</li>
+        <li>Players gather resources to build armies which then fight each other</li>
+        <li>Choose from three distinct races
+            <ul>
+                <li>Terran</li>
+                <li>Protoss</li>
+                <li>Zerg</li>
+            </ul>
+        </li>
+        <li>Very active competitive scene</li>
+    </ul>
+</section>
+<section class="slide" id="starcraft-video">
+    <h2>This is what it looks like</h2>
+<iframe width="650" height="400" src="http://www.youtube.com/embed/7vJ524eL8eI#t=12m50s" frameborder="0" allowfullscreen></iframe>
+</section>
+<section class="slide" id="our-site">
+    <h2>Let's make a site about Starcraft 2</h2>
+    <ul>
+        <li>Blog functionality</li>
+        <li>Player database</li>
+        <li>Match database</li>
+    </ul>
+</section>
+<section class="slide" id="database">
+    <h2>The database</h2>
+    <ul>
+        <li>sqlite3</li>
+        <li>We use HDBC to interface with it</li>
+    </ul>
+    <img src="img/dbschema.png">
+</section>
+<section class="slide" id="posts-type">
+    <h2>The type for posts</h2>
+<pre>
+<span class="Type">data</span> Post <span class="Statement">=</span> Post
+    { postID <span class="Statement">::</span> Maybe Integer
+    , title <span class="Statement">::</span> Text
+    , body <span class="Statement">::</span> Text
+    , slug <span class="Statement">::</span> Text
+    , timePosted <span class="Statement">::</span> UTCTime
+    } <span class="Type">deriving</span> (Eq, Show, Read)
+</pre>
+</section>
+<section class="slide" id="players-type">
+    <h2>Players</h2>
+<pre>
+<span class="Type">data</span> Player <span class="Statement">=</span> Player
+    { playerID <span class="Statement">::</span> Maybe Integer
+    , name <span class="Statement">::</span> Text
+    , race <span class="Statement">::</span> Race
+    , rating <span class="Statement">::</span> Integer
+    } <span class="Type">deriving</span> (Eq, Show, Read)
+
+<span class="Type">data</span> Race <span class="Statement">=</span> Terran <span class="Statement">|</span> Protoss <span class="Statement">|</span> Zerg
+    <span class="Type">deriving</span> (Eq, Show, Read, Enum, Ord)
+</pre>
+</section>
+<section class="slide" id="matches">
+    <h2>Matches</h2>
+<pre>
+<span class="Type">data</span> Game <span class="Statement">=</span> Game
+    { gameID <span class="Statement">::</span> Maybe Integer
+    , player1 <span class="Statement">::</span> Player
+    , player2 <span class="Statement">::</span> Player
+    , winner <span class="Statement">::</span> Player
+    , timePlayed <span class="Statement">::</span> UTCTime
+    , videoUrl <span class="Statement">::</span> ByteString
+    } <span class="Type">deriving</span> (Eq, Show, Read)
+</pre>
+</section>
+<section class="slide" id="db-hs">
+<h2><code>Db.hs</code></h2>
+<pre>
+allPosts <span class="Statement">::</span> Connection <span class="Statement">-&gt;</span> IO [Post]
+
+playerByName <span class="Statement">::</span> Connection <span class="Statement">-&gt;</span> Text <span class="Statement">-&gt;</span> IO (Maybe Player)
+allPlayers <span class="Statement">::</span> Connection <span class="Statement">-&gt;</span> IO [Player]
+putPlayer <span class="Statement">::</span> Connection <span class="Statement">-&gt;</span> Player <span class="Statement">-&gt;</span> IO ()
+
+games <span class="Statement">::</span> Connection <span class="Statement">-&gt;</span> IO [Game]
+game <span class="Statement">::</span> Connection <span class="Statement">-&gt;</span> Integer <span class="Statement">-&gt;</span> IO (Maybe Game)
+gamesByPlayer <span class="Statement">::</span> Connection <span class="Statement">-&gt;</span> Player <span class="Statement">-&gt;</span> IO [Game]
+</pre>
+</section>
+<section class="slide" id="template-structure">
+    <h2><code>base.tpl</code></h2>
+<pre>
+    <span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier"> </span><span class="Type">id</span><span class="Identifier">=</span><span class="Constant">&quot;navigation&quot;</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">Home</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/players&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">Players</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/games&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">Games</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/about&quot;</span><span class="Identifier">&gt;</span><span class="Underlined">About</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier"> </span><span class="Type">id</span><span class="Identifier">=</span><span class="Constant">&quot;blurb&quot;</span><span class="Identifier">&gt;</span>
+        This is a blog about StarCraft 2
+    <span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier"> </span><span class="Type">id</span><span class="Identifier">=</span><span class="Constant">&quot;left-column&quot;</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>main<span class="Identifier">/&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">div</span><span class="Identifier"> </span><span class="Type">id</span><span class="Identifier">=</span><span class="Constant">&quot;right-column&quot;</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>sidebar<span class="Identifier">/&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">div</span><span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide" id="posts-splice">
+<h2>Splicing posts</h2>
+    <p>Let's make a splice for displaying post info. It should take something like this ...</p>
+<pre>
+<span class="Identifier">&lt;</span>posts<span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;&lt;</span>posttitle<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;&lt;</span>postbody<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier">&gt;</span>Posted on: <span class="Identifier">&lt;</span>timeposted<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>posts<span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide">
+    <h2>And turn it into something like this.</h2>
+
+<pre>
+<span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">Thorzain wins Dreamhack</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>The Swedish Terran Thorzain has won the Dreamhack tournament!<span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier">&gt;</span>Posted on: 2012-05-25 11:11:11 UTC<span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">Oz switches to team Fnatic</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>The Korean Protoss Oz is now on the team Fnatic.<span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier">&gt;</span>Posted on: 2012-05-24 11:11:11 UTC<span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">MVP wins his fourth GSL!</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>He's so dreamy.<span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier">&gt;</span>Posted on: 2012-05-21 11:11:11 UTC<span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+</pre>
+    <p>The splice will interact with the database!</p>
+</section>
+<section class="slide" id="posts-splice-2">
+    <h2>Splicing a single post</h2>
+<pre>
+mkPostSplice <span class="Statement">::</span> Post <span class="Statement">-&gt;</span> Splice AppHandler
+mkPostSplice p <span class="Statement">=</span> runChildrenWithText
+    [(<span class="Constant">&quot;posttitle&quot;</span>, DB.title p)
+    ,(<span class="Constant">&quot;postbody&quot;</span>, DB.body p)
+    ,(<span class="Constant">&quot;timeposted&quot;</span>, showAsText <span class="Statement">$</span> DB.timePosted p)
+    ]
+</pre>
+    <p>This function takes a <code>Post</code> and returns a splice which will substitute
+    relevant tags with data from the <code>Post</code>.</p>
+</section>
+<section class="slide" id="posts-splice-3">
+    <h2>If our <code>mkPostSplice</code> function gets this <code>Post</code></h2>
+<pre>
+Post { postID <span class="Statement">=</span> Nothing
+     , title <span class="Statement">=</span> <span class="Constant">&quot;Thing happens&quot;</span>
+     , body <span class="Statement">=</span> <span class="Constant">&quot;Wow, a thing happened, this is amazing&quot;</span>
+     , slug <span class="Statement">=</span> <span class="Constant">&quot;thing-happens&quot;</span>
+     , timePosted <span class="Statement">=</span> someTime
+     }
+</pre>
+</section>
+<section class="slide">
+        <p>and we bind the resulting splice to the tag <code>examplepost</code>, Heist will transform each occurence of this</p>
+<pre>
+<span class="Identifier">&lt;</span>examplepost<span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;&lt;</span>posttitle<span class="Identifier">&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;&lt;</span>postbody<span class="Identifier">&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>examplepost<span class="Identifier">&gt;</span>
+</pre>
+    <p>into this:</p>
+<pre>
+<span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">Thing happens</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>Wow, a thing happened, this is amazing<span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+</pre>
+    </section>
+
+</section>
+<section class="slide" id="getting-all-posts">
+    <h2>Splicing in all the posts</h2>
+<pre>
+postsSplice <span class="Statement">::</span> Splice AppHandler
+postsSplice <span class="Statement">=</span> <span class="Statement">do</span>
+    conn <span class="Statement">&lt;-</span> lift <span class="Statement">$</span> gets _conn
+    posts <span class="Statement">&lt;-</span> liftIO <span class="Statement">$</span> DB.allPosts conn
+    mapSplices mkPostSplice posts
+</pre>
+    <ul>
+        <li>Gets the database connection</li>
+        <li>Retrieves a list of posts</li>
+        <li>Makes a splice for every post and then joins the results</li>
+    </ul>
+</section>
+<section class="slide" id="splices-result">
+<h2>&nbsp;</h2>
+<pre>
+<span class="Identifier">&lt;</span>posts<span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;&lt;</span>posttitle<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;&lt;</span>postbody<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier">&gt;</span>Posted on: <span class="Identifier">&lt;</span>timeposted<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>posts<span class="Identifier">&gt;</span>
+</pre>
+<pre>
+<span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">Thorzain wins Dreamhack</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>The Swedish Terran Thorzain has won the Dreamhack tournament!<span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier">&gt;</span>Posted on: 2012-05-25 11:11:11 UTC<span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">Oz switches to team Fnatic</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>The Korean Protoss Oz is now on the team Fnatic.<span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier">&gt;</span>Posted on: 2012-05-24 11:11:11 UTC<span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;</span><span class="Title">MVP wins his fourth GSL!</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>He's so dreamy.<span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier">&gt;</span>Posted on: 2012-05-21 11:11:11 UTC<span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide" id="binding-our-posts-splice">
+<h2>Binding the <code>posts</code> splice</h2>
+<pre>
+app <span class="Statement">::</span> SnapletInit App App
+app <span class="Statement">=</span> makeSnaplet <span class="Constant">&quot;app&quot;</span> <span class="Constant">&quot;our sc2 site&quot;</span> Nothing <span class="Statement">$</span> <span class="Statement">do</span>
+    h <span class="Statement">&lt;-</span> nestSnaplet <span class="Constant">&quot;heist&quot;</span> heist <span class="Statement">$</span> heistInit <span class="Constant">&quot;templates&quot;</span>
+    conn <span class="Statement">&lt;-</span> liftIO <span class="Statement">$</span> connectSqlite3 <span class="Constant">&quot;data.db&quot;</span>
+    addSplices <span class="Statement">$</span> map (second liftHeist)
+        [ (<span class="Constant">&quot;posts&quot;</span>, postsSplice)
+        ]
+    addRoutes routes
+    wrapHandlers (<span class="Statement">&lt;|&gt;</span> the404)
+    return <span class="Statement">$</span> App h conn
+</pre>
+<p>Because we bind it when our app is initialized, it's usable from anywhere within our app!</p>
+</section>
+<section class="slide" id="handlers-and-routes">
+    <h2>Adding a handler and a route</h2>
+<p>We don't have to do anything special in the handler. We just render <code>index.tpl</code>! That's because our splice was bound at initialization.</p>
+<pre>
+index <span class="Statement">::</span> Handler App App ()
+index <span class="Statement">=</span> ifTop <span class="Statement">$</span> render <span class="Constant">&quot;index&quot;</span>
+
+routes <span class="Statement">::</span> [(ByteString, Handler App App ())]
+routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;</span>, index)
+         , (<span class="Constant">&quot;&quot;</span>, serveDirectory <span class="Constant">&quot;static&quot;</span>)
+         ]
+</pre>
+</section>
+<section class="slide" id="sc-index-tpl">
+        <h2><code>index.tpl</code></h2>
+<pre>
+<span class="Identifier">&lt;</span>apply<span class="Identifier"> template=</span><span class="Constant">&quot;base&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;main&quot;</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span>posts<span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;&lt;</span>posttitle<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>postbody<span class="Identifier">/&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">br</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier"> </span><span class="Type">class</span><span class="Identifier">=</span><span class="Constant">&quot;date&quot;</span><span class="Identifier">&gt;</span>Posted on: <span class="Identifier">&lt;</span>timeposted<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;/</span>posts<span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;sidebar&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>apply<span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide" id="displaying-players">
+    <h2>Displaying players</h2>
+<pre>
+mkPlayerSplice <span class="Statement">::</span> Player <span class="Statement">-&gt;</span> Splice AppHandler
+mkPlayerSplice p <span class="Statement">=</span> runChildrenWithText
+    [(<span class="Constant">&quot;name&quot;</span>, DB.name p)
+    ,(<span class="Constant">&quot;race&quot;</span>, showAsText <span class="Statement">$</span> DB.race p)
+    ,(<span class="Constant">&quot;r&quot;</span>, T.take <span class="Constant">1</span> <span class="Statement">.</span> showAsText <span class="Statement">$</span> DB.race p)
+    ,(<span class="Constant">&quot;rating&quot;</span>, showAsText <span class="Statement">$</span> DB.rating p)
+    ]
+</pre>
+<pre>
+playersSplice <span class="Statement">::</span> Splice AppHandler
+playersSplice <span class="Statement">=</span> <span class="Statement">do</span>
+    conn <span class="Statement">&lt;-</span> lift <span class="Statement">$</span> gets _conn
+    players <span class="Statement">&lt;-</span> liftIO <span class="Statement">$</span> DB.allPlayers conn
+    mapSplices mkPlayerSplice players
+</pre>
+</section>
+<section class="slide" id="sc-players-tpl">
+<h2><code>players.tpl</code></h2>
+<pre>
+<span class="Identifier">&lt;</span>apply<span class="Identifier"> template=</span><span class="Constant">&quot;base&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;main&quot;</span><span class="Identifier">&gt;</span>
+    ...
+      <span class="Identifier">&lt;</span><span class="Statement">tbody</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>players<span class="Identifier">&gt;</span>
+          <span class="Identifier">&lt;</span><span class="Statement">tr</span><span class="Identifier">&gt;</span>
+            <span class="Identifier">&lt;</span><span class="Statement">td</span><span class="Identifier">&gt;&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/players/$</span><span class="Special">{</span>name<span class="Special">}</span><span class="Constant">&quot;</span><span class="Identifier">&gt;&lt;</span>name<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;&lt;/</span><span class="Statement">td</span><span class="Identifier">&gt;</span>
+            <span class="Identifier">&lt;</span><span class="Statement">td</span><span class="Identifier">&gt;&lt;</span>race<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">td</span><span class="Identifier">&gt;</span>
+            <span class="Identifier">&lt;</span><span class="Statement">td</span><span class="Identifier">&gt;&lt;</span>rating<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">td</span><span class="Identifier">&gt;</span>
+          <span class="Identifier">&lt;/</span><span class="Statement">tr</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;/</span>players<span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;/</span><span class="Statement">tbody</span><span class="Identifier">&gt;</span>
+      ...
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;sidebar&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>apply<span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide">
+    <h2>Binding the <code>players</code> splice</h2>
+<pre>
+app <span class="Statement">::</span> SnapletInit App App
+app <span class="Statement">=</span> makeSnaplet <span class="Constant">&quot;app&quot;</span> <span class="Constant">&quot;our sc2 site&quot;</span> Nothing <span class="Statement">$</span> <span class="Statement">do</span>
+    h <span class="Statement">&lt;-</span> nestSnaplet <span class="Constant">&quot;heist&quot;</span> heist <span class="Statement">$</span> heistInit <span class="Constant">&quot;templates&quot;</span>
+    conn <span class="Statement">&lt;-</span> liftIO <span class="Statement">$</span> connectSqlite3 <span class="Constant">&quot;data.db&quot;</span>
+    addSplices <span class="Statement">$</span> map (second liftHeist)
+        [ (<span class="Constant">&quot;posts&quot;</span>, postsSplice)
+        , (<span class="Constant">&quot;players&quot;</span>, playersSplice)
+        ]
+    addRoutes routes
+    wrapHandlers (<span class="Statement">&lt;|&gt;</span> the404)
+    return <span class="Statement">$</span> App h conn
+</pre>
+</section>
+<section class="slide" id="sc-handlers-and-routes-players">
+<h2>Adding a handler and a route</h2>
+<pre>
+index <span class="Statement">::</span> Handler App App ()
+index <span class="Statement">=</span> ifTop <span class="Statement">$</span> render <span class="Constant">&quot;index&quot;</span>
+
+players <span class="Statement">::</span> Handler App App ()
+players <span class="Statement">=</span> render <span class="Constant">&quot;players&quot;</span>
+
+routes <span class="Statement">::</span> [(ByteString, Handler App App ())]
+routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;</span>, index)
+         , (<span class="Constant">&quot;/players&quot;</span>, players)
+         , (<span class="Constant">&quot;&quot;</span>, serveDirectory <span class="Constant">&quot;static&quot;</span>)
+         ]
+</pre>
+</section>
+<section class="slide" id="sc-displaying-games">
+    <h2>Displaying games</h2>
+<pre>
+mkGameSplice <span class="Statement">::</span> Game <span class="Statement">-&gt;</span> Splice AppHandler
+mkGameSplice game <span class="Statement">=</span> runChildrenWith
+    [(<span class="Constant">&quot;id&quot;</span>, textSplice <span class="Statement">$</span> maybe <span class="Constant">&quot;invalid&quot;</span> showAsText <span class="Statement">$</span> DB.gameID game)
+    ,(<span class="Constant">&quot;player1&quot;</span>, mkPlayerSplice <span class="Statement">$</span> DB.player1 game)
+    ,(<span class="Constant">&quot;player2&quot;</span>, mkPlayerSplice <span class="Statement">$</span> DB.player2 game)
+    ,(<span class="Constant">&quot;winner&quot;</span>, mkPlayerSplice <span class="Statement">$</span> DB.winner game)
+    ,(<span class="Constant">&quot;timeplayed&quot;</span>, textSplice <span class="Statement">$</span> showAsText <span class="Statement">$</span> DB.timePlayed game)
+    ,(<span class="Constant">&quot;videourl&quot;</span>, textSplice <span class="Statement">$</span> bs2text <span class="Statement">$</span> DB.videoUrl game)
+    ]
+</pre>
+<pre>
+gamesSplice <span class="Statement">::</span> Splice AppHandler
+gamesSplice <span class="Statement">=</span> <span class="Statement">do</span>
+    conn <span class="Statement">&lt;-</span> lift <span class="Statement">$</span> gets _conn
+    games <span class="Statement">&lt;-</span> liftIO <span class="Statement">$</span> DB.games conn
+    mapSplices mkGameSplice games
+</pre>
+</section>
+<section class="slide" id="games-tpl">
+<h2><code>games.tpl</code></h2>
+<pre>
+<span class="Identifier">&lt;</span>apply<span class="Identifier"> template=</span><span class="Constant">&quot;base&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;main&quot;</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;</span>games<span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+          <span class="Identifier">&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/games/$</span><span class="Special">{</span>id<span class="Special">}</span><span class="Constant">&quot;</span><span class="Identifier">&gt;</span>
+<span class="Underlined">            </span><span class="Identifier">&lt;</span>player1<span class="Identifier">&gt;&lt;</span>name<span class="Identifier">/&gt;</span><span class="Underlined">(</span><span class="Identifier">&lt;</span>r<span class="Identifier">/&gt;</span><span class="Underlined">)</span><span class="Identifier">&lt;/</span>player1<span class="Identifier">&gt;</span><span class="Underlined"> vs. </span>
+<span class="Underlined">            </span><span class="Identifier">&lt;</span>player2<span class="Identifier">&gt;&lt;</span>name<span class="Identifier">/&gt;</span><span class="Underlined">(</span><span class="Identifier">&lt;</span>r<span class="Identifier">/&gt;</span><span class="Underlined">)</span><span class="Identifier">&lt;/</span>player2<span class="Identifier">&gt;</span>
+<span class="Underlined">          </span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;</span>
+          <span class="Identifier">&lt;</span><span class="Statement">br</span><span class="Identifier">&gt;</span>
+          <span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier"> </span><span class="Type">class</span><span class="Identifier">=</span><span class="Constant">&quot;date&quot;</span><span class="Identifier">&gt;&lt;</span>timeplayed<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;/</span>games<span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;/</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;sidebar&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>apply<span class="Identifier">&gt;</span>
+</pre>
+</section>
+<section class="slide" id="sc-binding-the-games-splice">
+<h2>Binding the games splice</h2>
+<pre>
+app <span class="Statement">::</span> SnapletInit App App
+app <span class="Statement">=</span> makeSnaplet <span class="Constant">&quot;app&quot;</span> <span class="Constant">&quot;our sc2 blog&quot;</span> Nothing <span class="Statement">$</span> <span class="Statement">do</span>
+    h <span class="Statement">&lt;-</span> nestSnaplet <span class="Constant">&quot;heist&quot;</span> heist <span class="Statement">$</span> heistInit <span class="Constant">&quot;templates&quot;</span>
+    conn <span class="Statement">&lt;-</span> liftIO <span class="Statement">$</span> connectSqlite3 <span class="Constant">&quot;data.db&quot;</span>
+    addSplices <span class="Statement">$</span> map (second liftHeist)
+        [ (<span class="Constant">&quot;posts&quot;</span>, postsSplice)
+        , (<span class="Constant">&quot;players&quot;</span>, playersSplice)
+        , (<span class="Constant">&quot;games&quot;</span>, gamesSplice)
+        ]
+    addRoutes routes
+    wrapHandlers (<span class="Statement">&lt;|&gt;</span> the404)
+    return <span class="Statement">$</span> App h conn
+</pre>
+</section>
+<section class="slide" id="sc-games-routes-handlers">
+<h2>Adding the route and handler</h2>
+<pre>
+index <span class="Statement">::</span> Handler App App ()
+index <span class="Statement">=</span> ifTop <span class="Statement">$</span> render <span class="Constant">&quot;index&quot;</span>
+
+players <span class="Statement">::</span> Handler App App ()
+players <span class="Statement">=</span> render <span class="Constant">&quot;players&quot;</span>
+
+games <span class="Statement">::</span> Handler App App ()
+games <span class="Statement">=</span> render <span class="Constant">&quot;games&quot;</span>
+
+routes <span class="Statement">::</span> [(ByteString, Handler App App ())]
+routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;</span>, index)
+         , (<span class="Constant">&quot;/players&quot;</span>, players)
+         , (<span class="Constant">&quot;/games&quot;</span>, games)
+         , (<span class="Constant">&quot;&quot;</span>, serveDirectory <span class="Constant">&quot;static&quot;</span>)
+         ]
+</pre>
+</section>
+<section class="slide" id="sc-single-player-page">
+<h2>A handler to display a specific player</h2>
+<pre>
+player <span class="Statement">::</span> Handler App App ()
+player <span class="Statement">=</span> <span class="Statement">do</span>
+  (Just name) <span class="Statement">&lt;-</span> getParam <span class="Constant">&quot;name&quot;</span>
+  conn <span class="Statement">&lt;-</span> gets _conn
+  mplayer <span class="Statement">&lt;-</span> liftIO <span class="Statement">$</span> DB.playerByName conn (bs2text name)
+  <span class="Statement">case</span> mplayer <span class="Statement">of</span>
+    Nothing <span class="Statement">-&gt;</span> the404
+    (Just player) <span class="Statement">-&gt;</span> <span class="Statement">do</span>
+      games <span class="Statement">&lt;-</span> liftIO <span class="Statement">$</span> DB.gamesByPlayer conn player
+      <span class="Statement">let</span> playerSplice <span class="Statement">=</span> mkPlayerSplice player
+      <span class="Statement">let</span> gamesSplice <span class="Statement">=</span> mapSplices mkGameSplice games
+      heistLocal (bindSplice <span class="Constant">&quot;player&quot;</span> playerSplice
+                 <span class="Statement">.</span>bindSplice <span class="Constant">&quot;games&quot;</span> gamesSplice
+                 ) <span class="Statement">$</span> render <span class="Constant">&quot;player&quot;</span>
+</pre>
+</section>
+<section class="slide" id="sc-player-tpl">
+<h2><code>player.tpl</code></h2>
+<pre>
+<span class="Identifier">&lt;</span>apply<span class="Identifier"> template=</span><span class="Constant">&quot;base&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;main&quot;</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;</span>player<span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;</span><span class="Statement">h1</span><span class="Identifier">&gt;&lt;</span>name<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">h1</span><span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;</span><span class="Statement">p</span><span class="Identifier">&gt;</span>He plays <span class="Identifier">&lt;</span>race<span class="Identifier">/&gt;</span> and his rating is <span class="Identifier">&lt;</span>rating<span class="Identifier">/&gt;</span>.<span class="Identifier">&lt;/</span><span class="Statement">p</span><span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;</span>games<span class="Identifier">&gt;</span>
+          <span class="Identifier">&lt;</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+            <span class="Identifier">&lt;</span><span class="Statement">a</span><span class="Identifier"> </span><span class="Type">href</span><span class="Identifier">=</span><span class="Constant">&quot;/games/$</span><span class="Special">{</span>id<span class="Special">}</span><span class="Constant">&quot;</span><span class="Identifier">&gt;</span>
+<span class="Underlined">              </span><span class="Identifier">&lt;</span>player1<span class="Identifier">&gt;&lt;</span>name<span class="Identifier">/&gt;</span><span class="Underlined">(</span><span class="Identifier">&lt;</span>r<span class="Identifier">/&gt;</span><span class="Underlined">)</span><span class="Identifier">&lt;/</span>player1<span class="Identifier">&gt;</span><span class="Underlined"> vs. </span>
+<span class="Underlined">              </span><span class="Identifier">&lt;</span>player2<span class="Identifier">&gt;&lt;</span>name<span class="Identifier">/&gt;</span><span class="Underlined">(</span><span class="Identifier">&lt;</span>r<span class="Identifier">/&gt;</span><span class="Underlined">)</span><span class="Identifier">&lt;/</span>player2<span class="Identifier">&gt;</span>
+<span class="Underlined">            </span><span class="Identifier">&lt;/</span><span class="Statement">a</span><span class="Identifier">&gt;</span>
+            <span class="Identifier">&lt;</span><span class="Statement">br</span><span class="Identifier">&gt;</span>
+            <span class="Identifier">&lt;</span><span class="Statement">span</span><span class="Identifier"> </span><span class="Type">class</span><span class="Identifier">=</span><span class="Constant">&quot;date&quot;</span><span class="Identifier">&gt;&lt;</span>timeplayed<span class="Identifier">/&gt;</span><span class="Identifier">&lt;/</span><span class="Statement">span</span><span class="Identifier">&gt;</span>
+          <span class="Identifier">&lt;/</span><span class="Statement">li</span><span class="Identifier">&gt;</span>
+        <span class="Identifier">&lt;/</span>games<span class="Identifier">&gt;</span>
+      <span class="Identifier">&lt;/</span><span class="Statement">ul</span><span class="Identifier">&gt;</span>
+    <span class="Identifier">&lt;/</span>player<span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;</span>bind<span class="Identifier"> tag=</span><span class="Constant">&quot;sidebar&quot;</span><span class="Identifier">&gt;</span>
+  <span class="Identifier">&lt;/</span>bind<span class="Identifier">&gt;</span>
+<span class="Identifier">&lt;/</span>apply<span class="Identifier">&gt;</span>
+</pre>
+</section>
+<!--
+<section class="slide" id="sc-add-a-player">
+    <h2>A handler to add a player</h2>
+<pre>
+putPlayer <span class="Statement">::</span> Handler App App ()
+putPlayer <span class="Statement">=</span> <span class="Statement">do</span>
+    mname <span class="Statement">&lt;-</span> getPostParam <span class="Constant">&quot;name&quot;</span>
+    mrace <span class="Statement">&lt;-</span> getPostParam <span class="Constant">&quot;race&quot;</span>
+    mrating <span class="Statement">&lt;-</span> getPostParam <span class="Constant">&quot;rating&quot;</span>
+    <span class="Statement">case</span> sequence [mname, mrace, mrating] <span class="Statement">of</span>
+        Nothing <span class="Statement">-&gt;</span> writeBS <span class="Constant">&quot;error&quot;</span>
+        (Just [name, race, rating])<span class="Statement">-&gt;</span> <span class="Statement">do</span>
+            conn <span class="Statement">&lt;-</span> gets _conn
+            <span class="Statement">let</span> player <span class="Statement">=</span> DB.Player Nothing
+                                   (bs2text name)
+                                   (bs2race race)
+                                   (bs2integer rating)
+            liftIO <span class="Statement">$</span> DB.putPlayer conn player
+            writeBS <span class="Constant">&quot;OK&quot;</span>
+</pre>
+</section>
+<section class="slide" id="handlers-based-on-method">
+<h2>Deciding between handlers based on the method</h2>
+<p>We want to use the url <code>/players</code> for both displaying and inputting new players. We use the <code>method</code> function and the alternative operator <code>&lt;|&gt;</code> to decide which handler to use based on the HTTP method.</p>
+<pre>
+routes <span class="Statement">::</span> [(ByteString, Handler App App ())]
+routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;</span>, index)
+         , (<span class="Constant">&quot;/players&quot;</span>, 
+            method GET players <span class="Statement">&lt;|&gt;</span> 
+            method POST putPlayer)
+         , (<span class="Constant">&quot;/players/:name&quot;</span>, player)
+         , (<span class="Constant">&quot;/about&quot;</span>, about)
+         , (<span class="Constant">&quot;/games&quot;</span>, games)
+         , (<span class="Constant">&quot;/games/:id&quot;</span>, game)
+         , (<span class="Constant">&quot;&quot;</span>, serveDirectory <span class="Constant">&quot;static&quot;</span>)
+         ]
+</pre>
+</section>
+-->
+<section class="slide" id="more-work">
+    <h2>Ideas for improvement</h2>
+    <ul>
+        <li>Authentication via <code>Snap.Snaplet.Auth</code></li>
+        <li>Forms (can use the <code>digestive-functors</code> package)</li>
+        <li>Database access via <code>snaplet-hdbc</code></li>
+        <li>Support for multiple users</li>
+    </ul>
+    <h2>Get the code</h2>
+    <p>
+        <a href="http://github.com/bonus500/sc2blog">http://github.com/bonus500/sc2blog</a>
+    </p>
+</section>
+<section class="slide" id="in-summary">
+    <h2>In summary</h2>
+    <ul>
+        <li>Snap is simple to install use</li>
+        <li>Leverages Haskell's strengths</li>
+        <li>It's fast</li>
+        <li>Modular</li>
+        <li>Flexible</li>
+        <li>Use Heist to provide an API to your template designers</li>
+    </ul>
+    </ul>
+</section>
+<section class="slide" id="thanks">
+    <h2>Thanks for listening!</h2>
+    <section class="slide">
+        <p>Also thanks a million to</p>    
+        <img src="img/wavefront.png">
+        <img src="img/bcit.jpg">
+        <p style="text-align:center">Roman Gonzalez, Jesse Heaslip &amp; Tavis Rudd</p>
+    </section>
+</section>
+
+<!-- deck.navigation snippet -->
+<!--
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+-->
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="./jquery-1.7.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="./core/deck.core.js"></script>
+<script src="./extensions/hash/deck.hash.js"></script>
+<script src="./extensions/menu/deck.menu.js"></script>
+<script src="./extensions/goto/deck.goto.js"></script>
+<script src="./extensions/status/deck.status.js"></script>
+<script src="./extensions/navigation/deck.navigation.js"></script>
+<script src="./extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+    $.deck('getContainer').bind('contextmenu', function(e) {
+        e.preventDefault();
+        $.deck('next');
+        return false;
+    });
+});
+</script>
+
+</body>
+</html>
