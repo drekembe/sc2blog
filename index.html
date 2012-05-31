@@ -6,13 +6,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	
+
 	<title>A Quick Intro to Snap</title>
-	
+
 	<meta name="description" content="A Quick Intro to Snap">
 	<meta name="author" content="Miran Lipovaca">
 	<meta name="viewport" content="width=1024, user-scalable=no">
-	
+
 	<!-- Core and extension CSS files -->
 	<link rel="stylesheet" href="./core/deck.core.css">
 	<link rel="stylesheet" href="./extensions/goto/deck.goto.css">
@@ -21,13 +21,13 @@
 	<link rel="stylesheet" href="./extensions/status/deck.status.css">
 	<link rel="stylesheet" href="./extensions/hash/deck.hash.css">
 	<link rel="stylesheet" href="./extensions/scale/deck.scale.css">
-	
+
 	<!-- Style theme. More available in /themes/style/ or create your own. -->
 	<link rel="stylesheet" href="./themes/style/swiss.css">
-	
+
 	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
 	<link rel="stylesheet" href="./themes/transition/horizontal-slide.css">
-	
+
 	<script src="./modernizr.custom.js"></script>
 </head>
 
@@ -45,7 +45,7 @@
         <h2>By the way, what's Haskell?</h2>
         <ul>
             <li>A very cool and elegant functional programming language</li>
-            <li>Really fun to learn and use. Makes you think differently!</li> 
+            <li>Really fun to learn and use. Makes you think differently!</li>
             <li>A big subset of errors is caught at compile time</li>
             <li>Can be really fast</li>
             <li>Libraries for pretty much anything</li>
@@ -859,8 +859,8 @@ putPlayer <span class="Statement">=</span> <span class="Statement">do</span>
 <pre>
 routes <span class="Statement">::</span> [(ByteString, Handler App App ())]
 routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;</span>, index)
-         , (<span class="Constant">&quot;/players&quot;</span>, 
-            method GET players <span class="Statement">&lt;|&gt;</span> 
+         , (<span class="Constant">&quot;/players&quot;</span>,
+            method GET players <span class="Statement">&lt;|&gt;</span>
             method POST putPlayer)
          , (<span class="Constant">&quot;/players/:name&quot;</span>, player)
          , (<span class="Constant">&quot;/about&quot;</span>, about)
@@ -899,7 +899,7 @@ routes <span class="Statement">=</span> [ (<span class="Constant">&quot;/&quot;<
 <section class="slide" id="thanks">
     <h2>Thanks for listening!</h2>
     <section class="slide">
-        <p>Also thanks a million to</p>    
+        <p>Also thanks a million to</p>
         <img src="img/wavefront.png">
         <img src="img/bcit.jpg">
         <p style="text-align:center">Roman Gonzalez, Jesse Heaslip &amp; Tavis Rudd</p>
